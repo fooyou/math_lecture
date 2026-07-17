@@ -1,2 +1,15 @@
 body, html { margin: 0; padding: 0; overflow: hidden; background: #0a0b10; }
 canvas { display: block; }
+#controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+button { cursor: pointer; }
+#progressSlider { width: 300px; cursor: pointer; }
