@@ -17,114 +17,94 @@ canvas {
     z-index: 1;
 }
 
-/* Sci-Fi Glassmorphic Controls Panel */
+/* Page Title */
+#title {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(0, 255, 255, 0.7);
+    letter-spacing: 2px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Flat Controls Panel (top-right, never covers formula) */
 #controls {
     position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 16px;
+    right: 16px;
     display: flex;
     align-items: center;
-    gap: 15px;
-    background: rgba(10, 11, 16, 0.75);
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.12),
-                inset 0 0 10px rgba(0, 255, 255, 0.05);
-    padding: 12px 24px;
-    border-radius: 12px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 10;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#controls:hover {
-    border-color: rgba(0, 255, 255, 0.5);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.2),
-                inset 0 0 15px rgba(0, 255, 255, 0.08);
-}
-
-/* Custom Holographic Button */
-button {
+    gap: 10px;
     background: transparent;
-    border: 1px solid rgba(0, 255, 255, 0.8);
+    padding: 0;
+    z-index: 10;
+}
+
+/* Flat Button */
+button {
+    background: rgba(0, 255, 255, 0.08);
+    border: 1px solid rgba(0, 255, 255, 0.4);
     color: #00ffff;
-    padding: 8px 18px;
-    font-size: 13px;
+    padding: 6px 14px;
+    font-size: 12px;
     font-family: inherit;
-    font-weight: bold;
-    border-radius: 4px;
     cursor: pointer;
-    letter-spacing: 1px;
-    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.4);
-    box-shadow: inset 0 0 6px rgba(0, 255, 255, 0.15);
 }
 
 button:hover {
-    background: #00ffff;
-    color: #06070a;
-    box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
-    text-shadow: none;
+    background: rgba(0, 255, 255, 0.2);
+    color: #ffffff;
 }
 
 button:active {
-    transform: scale(0.96);
-    box-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+    background: rgba(0, 255, 255, 0.35);
 }
 
-/* Custom Slider styling */
+/* Flat Slider */
 #progressSlider {
     -webkit-appearance: none;
     appearance: none;
-    width: 280px;
-    height: 4px;
-    background: rgba(0, 255, 255, 0.15);
-    border-radius: 2px;
+    width: 180px;
+    height: 3px;
+    background: rgba(0, 255, 255, 0.2);
+    border: none;
     outline: none;
     cursor: pointer;
-    position: relative;
-    transition: background 0.3s ease;
 }
 
 #progressSlider:hover {
-    background: rgba(0, 255, 255, 0.25);
+    background: rgba(0, 255, 255, 0.35);
 }
 
-/* Custom Webkit Thumb */
 #progressSlider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 2px solid #00ffff;
+    width: 10px;
+    height: 10px;
+    border-radius: 0;
+    background: #00ffff;
+    border: none;
     cursor: pointer;
-    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
-    transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
 #progressSlider::-webkit-slider-thumb:hover {
-    transform: scale(1.25);
-    background: #00ffff;
+    background: #ffffff;
 }
 
-/* Custom Firefox Thumb */
 #progressSlider::-moz-range-thumb {
     width: 10px;
     height: 10px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 2px solid #00ffff;
+    border-radius: 0;
+    background: #00ffff;
+    border: none;
     cursor: pointer;
-    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
-    transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
 #progressSlider::-moz-range-thumb:hover {
-    transform: scale(1.25);
-    background: #00ffff;
+    background: #ffffff;
 }
 
 /* Formula HUD Overlay (KaTeX) */
