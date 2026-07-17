@@ -1,15 +1,164 @@
-body, html { margin: 0; padding: 0; overflow: hidden; background: #0a0b10; }
-canvas { display: block; }
+/* Global Reset and Body */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #06070a; /* Slightly darker midnight blue for superior contrast */
+    font-family: 'Consolas', 'Monaco', 'Fira Code', 'Segoe UI', sans-serif;
+    color: #ffffff;
+    user-select: none;
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Sci-Fi Glassmorphic Controls Panel */
 #controls {
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px 20px;
-    border-radius: 20px;
+    align-items: center;
+    gap: 15px;
+    background: rgba(10, 11, 16, 0.75);
+    border: 1px solid rgba(0, 255, 255, 0.25);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.12),
+                inset 0 0 10px rgba(0, 255, 255, 0.05);
+    padding: 12px 24px;
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-button { cursor: pointer; }
-#progressSlider { width: 300px; cursor: pointer; }
+
+#controls:hover {
+    border-color: rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.2),
+                inset 0 0 15px rgba(0, 255, 255, 0.08);
+}
+
+/* Custom Holographic Button */
+button {
+    background: transparent;
+    border: 1px solid rgba(0, 255, 255, 0.8);
+    color: #00ffff;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-family: inherit;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.4);
+    box-shadow: inset 0 0 6px rgba(0, 255, 255, 0.15);
+}
+
+button:hover {
+    background: #00ffff;
+    color: #06070a;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+    text-shadow: none;
+}
+
+button:active {
+    transform: scale(0.96);
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+}
+
+/* Custom Slider styling */
+#progressSlider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 280px;
+    height: 4px;
+    background: rgba(0, 255, 255, 0.15);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+#progressSlider:hover {
+    background: rgba(0, 255, 255, 0.25);
+}
+
+/* Custom Webkit Thumb */
+#progressSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #00ffff;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+#progressSlider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    background: #00ffff;
+}
+
+/* Custom Firefox Thumb */
+#progressSlider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #00ffff;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+#progressSlider::-moz-range-thumb:hover {
+    transform: scale(1.25);
+    background: #00ffff;
+}
+
+/* Formula HUD Overlay (KaTeX) */
+#formulaOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.formula-hud {
+    position: absolute;
+    width: 480px;
+    padding: 18px 24px;
+    background: rgba(10, 11, 16, 0.85);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    transform: translateX(-50%);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.05s linear;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.08), inset 0 0 10px rgba(0, 255, 255, 0.03);
+}
+
+.formula-line {
+    font-size: 18px;
+    line-height: 2.2;
+}
+.formula-line:first-child .katex {
+    color: rgba(200, 255, 255, 0.8);
+}
+.formula-line:last-child .katex {
+    color: #00ffff;
+    font-weight: bold;
+}
