@@ -252,7 +252,7 @@ function drawDynamicAnnotations() {
         ctx.stroke();
 
         // 标签"半径 r"
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#ff44aa';
         ctx.font = '14px Consolas, Monaco, monospace';
         ctx.fillText('半径 r', cx + 12, cy - MAX_R / 2 + 5);
 
@@ -274,7 +274,7 @@ function drawDynamicAnnotations() {
         ctx.stroke();
 
         // 高度标签
-        ctx.fillStyle = '#ffcc00';
+        ctx.fillStyle = '#ffffff';
         ctx.font = '14px Consolas, Monaco, monospace';
         ctx.fillText('高 h = r', cx + 12, cy + MAX_R / 2 + 5);
 
