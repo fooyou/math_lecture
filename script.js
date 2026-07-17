@@ -50,7 +50,7 @@ function easeInOutQuad(x) {
 
 // 绘制全息网格背景
 function drawBackgroundGrid() {
-    ctx.strokeStyle = 'rgba(0, 255, 255, 0.025)';
+    ctx.strokeStyle = 'rgba(0, 255, 255, 0.035)';
     ctx.lineWidth = 1;
 
     const gridSize = 40;
@@ -72,7 +72,7 @@ function drawBackgroundGrid() {
     }
 
     // 在四角绘制测量十字线
-    ctx.strokeStyle = 'rgba(0, 255, 255, 0.15)';
+    ctx.strokeStyle = 'rgba(0, 255, 255, 0.2)';
     const pad = 20;
     const len = 10;
 
@@ -91,29 +91,33 @@ function drawBackgroundGrid() {
     });
 }
 
-// 脉动的全息能量核心
+    // 脉动的全息能量核心
 function drawEnergyCore() {
     const time = Date.now();
     const pulse = 1 + 0.15 * Math.sin(time / 200);
 
-    // 1. 中心高亮光点
-    ctx.fillStyle = 'rgba(0, 255, 255, 1)';
+    // 1. 中心高亮光点（白金色）
+    ctx.fillStyle = 'rgba(255, 255, 255, 1)';
     ctx.save();
-    ctx.shadowColor = 'rgba(0, 255, 255, 0.8)';
-    ctx.shadowBlur = 8;
+    ctx.shadowColor = 'rgba(255, 200, 0, 0.9)';
+    ctx.shadowBlur = 12;
     ctx.beginPath();
     ctx.arc(cx, cy, 3, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 
-    // 2. 脉冲光环
-    ctx.strokeStyle = `rgba(0, 255, 255, ${0.4 / pulse})`;
+    // 2. 暖色脉冲光环
+    ctx.strokeStyle = `rgba(255, 200, 0, ${0.35 / pulse})`;
     ctx.lineWidth = 1.5;
+    ctx.save();
+    ctx.shadowColor = 'rgba(255, 200, 0, 0.3)';
+    ctx.shadowBlur = 6;
     ctx.beginPath();
     ctx.arc(cx, cy, 10 * pulse, 0, Math.PI * 2);
     ctx.stroke();
+    ctx.restore();
 
-    // 3. 旋转虚线环
+    // 3. 冷色旋转虚线环
     ctx.strokeStyle = 'rgba(0, 255, 255, 0.25)';
     ctx.lineWidth = 1;
     ctx.save();
@@ -199,17 +203,17 @@ function drawMorphingCircles() {
         let strokeColor, glowColor;
         const lineWidth = 5;
         if (easedT === 1) {
-            // 已展开的三角形底线——稳定的深青色
-            strokeColor = 'rgba(0, 240, 240, 0.65)';
-            glowColor = 'rgba(0, 240, 240, 0.12)';
+            // 已展开的三角形底线——暖金色
+            strokeColor = 'rgba(255, 200, 0, 0.7)';
+            glowColor = 'rgba(255, 200, 0, 0.15)';
         } else if (easedT === 0) {
             // 未形变的圆形层——明亮的电青色
             strokeColor = 'rgba(150, 255, 255, 0.65)';
             glowColor = 'rgba(0, 255, 255, 0.3)';
         } else {
-            // 正在剥离的线——高亮白热/青黄色
-            strokeColor = 'rgba(230, 255, 255, 1)';
-            glowColor = 'rgba(0, 255, 255, 0.55)';
+            // 正在剥离的线——高亮白热
+            strokeColor = 'rgba(255, 255, 255, 1)';
+            glowColor = 'rgba(255, 200, 0, 0.4)';
         }
 
         // 双层绘制模拟泛光效果（高性能，GPU 友好）
@@ -239,22 +243,12 @@ function drawDynamicAnnotations() {
         ctx.save();
         ctx.globalAlpha = radiusOpacity;
 
-        // 虚线半径
+        // 实线半径
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-        ctx.setLineDash([4, 4]);
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.lineTo(cx, cy - MAX_R);
-        ctx.stroke();
-
-        // 向上的箭头
-        ctx.strokeStyle = '#ffffff';
-        ctx.setLineDash([]);
-        ctx.beginPath();
-        ctx.moveTo(cx - 4, cy - MAX_R + 8);
-        ctx.lineTo(cx, cy - MAX_R);
-        ctx.lineTo(cx + 4, cy - MAX_R + 8);
         ctx.stroke();
 
         // 标签"半径 r"
@@ -271,9 +265,8 @@ function drawDynamicAnnotations() {
         ctx.save();
         ctx.globalAlpha = heightOpacity;
 
-        // 虚线高
-        ctx.strokeStyle = 'rgba(0, 255, 255, 0.6)';
-        ctx.setLineDash([4, 4]);
+        // 实现高
+        ctx.strokeStyle = 'rgba(255, 200, 0, 0.5)';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(cx, cy);
@@ -281,7 +274,7 @@ function drawDynamicAnnotations() {
         ctx.stroke();
 
         // 高度标签
-        ctx.fillStyle = '#00ffff';
+        ctx.fillStyle = '#ffcc00';
         ctx.font = '14px Consolas, Monaco, monospace';
         ctx.fillText('高 h = r', cx + 12, cy + MAX_R / 2 + 5);
 
@@ -309,7 +302,7 @@ function drawTriangleOutline() {
         const currentRightY = baseY + (apexY - baseY) * progress;
 
         // 边界的发光外层
-        ctx.strokeStyle = 'rgba(0, 255, 255, 0.15)';
+        ctx.strokeStyle = 'rgba(255, 200, 0, 0.15)';
         ctx.lineWidth = 5;
         ctx.beginPath();
         ctx.moveTo(baseLeftX, baseY); ctx.lineTo(currentLeftX, currentLeftY);
@@ -317,7 +310,7 @@ function drawTriangleOutline() {
         ctx.stroke();
 
         // 锐利核心层
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.strokeStyle = 'rgba(255, 220, 50, 0.85)';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(baseLeftX, baseY); ctx.lineTo(currentLeftX, currentLeftY);
@@ -338,7 +331,7 @@ function drawTriangleOutline() {
         const yB = cy + MAX_R;
 
         // 底边线
-        ctx.strokeStyle = 'rgba(0, 255, 255, 0.4)';
+        ctx.strokeStyle = 'rgba(255, 200, 0, 0.4)';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(xL, yB);
@@ -346,14 +339,14 @@ function drawTriangleOutline() {
         ctx.stroke();
 
         // 两端精密度量刻度
-        ctx.strokeStyle = 'rgba(0, 255, 255, 0.7)';
+        ctx.strokeStyle = 'rgba(255, 200, 0, 0.7)';
         ctx.beginPath();
         ctx.moveTo(xL, yB - 6); ctx.lineTo(xL, yB + 6);
         ctx.moveTo(xR, yB - 6); ctx.lineTo(xR, yB + 6);
         ctx.stroke();
 
         // 底边下方居中标签
-        ctx.fillStyle = '#00ffff';
+        ctx.fillStyle = '#ffcc00';
         ctx.font = '14px Consolas, Monaco, monospace';
         ctx.textAlign = 'center';
         ctx.fillText('底边 Base = 2πr', cx, yB + 22);
