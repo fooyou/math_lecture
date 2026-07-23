@@ -54,7 +54,7 @@ function renderFormulas() {
 
 function updateFormulaHudPosition() {
     formulaHud.style.left = cx + 'px';
-    formulaHud.style.top = (baseY + 30) + 'px';
+    formulaHud.style.bottom = '60px';
 }
 
 function updateFormulaHudOpacity() {
