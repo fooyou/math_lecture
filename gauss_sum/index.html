@@ -2,19 +2,28 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>圆面积推导 - Circle to Triangle</title>
+    <title>高斯求和 - Gauss Sum</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 </head>
 <body>
     <canvas id="animationCanvas"></canvas>
 
-    <div id="title">圆的面积推导</div>
+    <div id="title">高斯求和</div>
+
+    <div id="nSelector">
+        <span class="nLabel">n =</span>
+        <button class="nBtn active" data-n="10">10</button>
+        <button class="nBtn" data-n="20">20</button>
+        <button class="nBtn" data-n="50">50</button>
+        <button class="nBtn" data-n="100">100</button>
+    </div>
 
     <div id="formulaOverlay">
         <div class="formula-hud">
             <div class="formula-line" id="formulaLine1"></div>
             <div class="formula-line" id="formulaLine2"></div>
+            <div class="formula-line" id="formulaLine3"></div>
         </div>
     </div>
 
