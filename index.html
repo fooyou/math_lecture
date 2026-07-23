@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数学趣味讲解</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #010204;
+    color: #c0c8d4;
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  h1 {
+    font-size: 28px;
+    color: #00ffff;
+    text-shadow: 0 0 20px rgba(0,255,255,0.3);
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 40px;
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 800px;
+  }
+  .card {
+    background: rgba(0,255,255,0.04);
+    border: 1px solid rgba(0,255,255,0.12);
+    border-radius: 12px;
+    padding: 28px 24px;
+    width: 340px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  }
+  .card:hover {
+    border-color: rgba(0,255,255,0.4);
+    background: rgba(0,255,255,0.07);
+    transform: translateY(-2px);
+  }
+  .card h2 {
+    font-size: 18px;
+    color: #00ffff;
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.6);
+  }
+  .card .tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 11px;
+    color: rgba(255,204,0,0.7);
+    border: 1px solid rgba(255,204,0,0.25);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+  footer {
+    margin-top: 48px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+  }
+</style>
+</head>
+<body>
+  <h1>数学趣味讲解</h1>
+  <p class="subtitle">可视化动画 &middot; 直觉优先 &middot; 思维培养</p>
+  <div class="grid">
+    <a class="card" href="circle_to_triangle/">
+      <h2>圆变三角形</h2>
+      <p>将圆展开成三角形，直观推导圆面积公式 S = πr²</p>
+      <span class="tag">几何形变</span>
+    </a>
+    <a class="card" href="gauss_sum/">
+      <h2>高斯求和</h2>
+      <p>用阶梯拼接矩形，直观理解 1+2+…+n = n(n+1)/2</p>
+      <span class="tag">阶梯拼接</span>
+    </a>
+    <a class="card" href="pythagoras/">
+      <h2>勾股定理</h2>
+      <p>面积拼贴法证明 a² + b² = c²，两种排列对比</p>
+      <span class="tag">面积拼贴</span>
+    </a>
+  </div>
+  <footer>通过 Canvas 动画，让数学变得有趣</footer>
+</body>
+</html>
