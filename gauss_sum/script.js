@@ -7,11 +7,12 @@ let isPlaying = true;
 let progress = 0;
 
 function calculateDimensions() {
-    cx = canvas.width / 2;
-    cy = canvas.height * 0.5;
-    const totalWidth = Math.min(canvas.width * 0.7, 800);
+    const dpr = window.devicePixelRatio || 1;
+    cx = canvas.width / dpr / 2;
+    cy = canvas.height / dpr * 0.5;
+    const totalWidth = Math.min(canvas.width / dpr * 0.7, 800);
     barWidth = Math.max(4, totalWidth / n);
-    const totalHeight = Math.min(canvas.height * 0.45, 450);
+    const totalHeight = Math.min(canvas.height / dpr * 0.45, 450);
     barHeightUnit = totalHeight / (n + 1);
     startX = cx - (n * barWidth) / 2;
     baseY = cy + totalHeight / 2;
@@ -93,8 +94,10 @@ renderFormulas();
 
 function updateSize() {
     const ca = document.getElementById('canvasArea');
-    canvas.width = ca.clientWidth;
-    canvas.height = ca.clientHeight;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = ca.clientWidth * dpr;
+    canvas.height = ca.clientHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     calculateDimensions();
 }
 window.addEventListener('resize', updateSize);
@@ -133,20 +136,16 @@ document.querySelectorAll('.nBtn').forEach(btn => {
 });
 
 function drawBackgroundGrid() {
+    const d = window.devicePixelRatio || 1;
+    const w = canvas.width / d, h = canvas.height / d;
     ctx.strokeStyle = 'rgba(0, 255, 255, 0.08)';
     ctx.lineWidth = 1;
     const gridSize = 40;
-    for (let x = 0; x < canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
+    for (let x = 0; x < w; x += gridSize) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
     }
-    for (let y = 0; y < canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
+    for (let y = 0; y < h; y += gridSize) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
     }
 }
 
@@ -203,7 +202,8 @@ function drawMirrorStaircase(mirrorP) {
         const curBottom = finalBottom - offset;
         const curH = curBottom - curTop;
 
-        if (curH <= 0 || curBottom < -50 || curTop > canvas.height + 50) continue;
+        const hLim = canvas.height / (window.devicePixelRatio || 1) + 50;
+        if (curH <= 0 || curBottom < -50 || curTop > hLim) continue;
 
         const rectX = x + gap / 2;
         const rectW = barWidth - gap;
@@ -266,7 +266,8 @@ function drawAnnotations(progress) {
 }
 
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const d = window.devicePixelRatio || 1;
+    ctx.clearRect(0, 0, canvas.width / d, canvas.height / d);
 
     if (isPlaying) {
         progress = Math.min(1, progress + 0.002);

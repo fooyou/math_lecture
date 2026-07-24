@@ -260,13 +260,6 @@ button:active {
         height: 50vh;
         min-height: 340px;
     }
-    #controlsBar {
-        gap: 12px;
-    }
-    #controlsBar button {
-        font-size: 14px;
-        padding: 8px 18px;
-    }
     #rightPanel {
         flex: 1 1 auto;
         padding: 24px 20px;
@@ -275,30 +268,25 @@ button:active {
         border-top: 1px solid rgba(0, 255, 255, 0.1);
     }
     #sectionTitle {
-        font-size: 24px;
+        font-size: 20px;
         margin-bottom: 20px;
         padding-bottom: 8px;
     }
     #formulaSection {
-        margin-bottom: 28px;
+        margin-bottom: 24px;
     }
     .formula-line {
-        font-size: 17px;
-        line-height: 2.4;
+        font-size: 15px;
+        line-height: 2.2;
     }
     #proofSummary {
         margin-top: 0;
         padding-top: 16px;
     }
     .summary-step {
-        font-size: 15px;
-        margin-bottom: 14px;
-        line-height: 1.8;
-    }
-    .stepNum {
-        font-size: 15px;
-        width: 26px;
-        height: 26px;
+        font-size: 13px;
+        margin-bottom: 12px;
+        line-height: 1.7;
     }
     #progressSlider {
         width: 240px;

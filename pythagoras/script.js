@@ -84,9 +84,10 @@ function renderFormulas() {
 }
 
 function calculateDimensions() {
-    cx = canvas.width / 2;
-    cy = canvas.height * 0.5;
-    const maxDim = Math.min(canvas.width, canvas.height) * 0.55;
+    const dpr = window.devicePixelRatio || 1;
+    cx = canvas.width / dpr / 2;
+    cy = canvas.height / dpr * 0.5;
+    const maxDim = Math.min(canvas.width / dpr, canvas.height / dpr) * 0.55;
     unit = maxDim / (a + b);
     bigSize = (a + b) * unit;
     bigBLx = cx - bigSize / 2;
@@ -121,8 +122,10 @@ renderFormulas();
 
 function updateSize() {
     const ca = document.getElementById('canvasArea');
-    canvas.width = ca.clientWidth;
-    canvas.height = ca.clientHeight;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = ca.clientWidth * dpr;
+    canvas.height = ca.clientHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     calculateDimensions();
 }
 window.addEventListener('resize', updateSize);
@@ -163,14 +166,16 @@ document.querySelectorAll('.tripleBtn').forEach(btn => {
 });
 
 function drawGrid() {
+    const d = window.devicePixelRatio || 1;
+    const w = canvas.width / d, h = canvas.height / d;
     ctx.strokeStyle = 'rgba(0, 255, 255, 0.035)';
     ctx.lineWidth = 1;
     const gs = 40;
-    for (let x = 0; x < canvas.width; x += gs) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    for (let x = 0; x < w; x += gs) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
     }
-    for (let y = 0; y < canvas.height; y += gs) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+    for (let y = 0; y < h; y += gs) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
     }
 }
 
@@ -198,7 +203,8 @@ function updateSummarySteps() {
 }
 
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const d = window.devicePixelRatio || 1;
+    ctx.clearRect(0, 0, canvas.width / d, canvas.height / d);
 
     if (isPlaying) {
         progress = Math.min(1, progress + 0.0015);

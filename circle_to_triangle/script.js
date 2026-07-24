@@ -18,11 +18,13 @@ katex.render('\\text{等腰三角形面积} = \\frac{1}{2} \\times \\text{底边
 katex.render('\\text{圆面积}\\; S = \\frac{1}{2} \\times 2\\pi r \\times r = \\pi r^{2}', document.getElementById('formulaLine2'), { throwOnError: false });
 
 function updateSize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    cx = canvas.width / 2;
-    cy = canvas.height * 0.42;
-    MAX_R = Math.max(120, Math.min(canvas.width * 0.22, canvas.height * 0.22, 220));
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = canvas.width / dpr / 2;
+    cy = canvas.height / dpr * 0.42;
+    MAX_R = Math.max(120, Math.min(canvas.width / dpr * 0.22, canvas.height / dpr * 0.22, 220));
     updateFormulaHudPosition();
 }
 window.addEventListener('resize', updateSize);
@@ -50,37 +52,30 @@ function easeInOutQuad(x) {
 
 // 绘制全息网格背景
 function drawBackgroundGrid() {
+    const d = window.devicePixelRatio || 1;
+    const w = canvas.width / d, h = canvas.height / d;
     ctx.strokeStyle = 'rgba(0, 255, 255, 0.035)';
     ctx.lineWidth = 1;
 
     const gridSize = 40;
 
-    // 绘制竖线
-    for (let x = 0; x < canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
+    for (let x = 0; x < w; x += gridSize) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
     }
 
-    // 绘制横线
-    for (let y = 0; y < canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
+    for (let y = 0; y < h; y += gridSize) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
     }
 
-    // 在四角绘制测量十字线
     ctx.strokeStyle = 'rgba(0, 255, 255, 0.2)';
     const pad = 20;
     const len = 10;
 
     const corners = [
         [pad, pad],
-        [canvas.width - pad, pad],
-        [pad, canvas.height - pad],
-        [canvas.width - pad, canvas.height - pad]
+        [w - pad, pad],
+        [pad, h - pad],
+        [w - pad, h - pad]
     ];
 
     corners.forEach(([ccx, ccy]) => {
@@ -373,7 +368,8 @@ function updateFormulaHudOpacity() {
 
 // 主循环
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const d = window.devicePixelRatio || 1;
+    ctx.clearRect(0, 0, canvas.width / d, canvas.height / d);
 
     // 更新进度
     if (isPlaying) {
