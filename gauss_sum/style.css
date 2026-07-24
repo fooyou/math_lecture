@@ -250,3 +250,39 @@ button:active {
     color: #00ffff;
     text-shadow: 0 0 6px rgba(0, 255, 255, 0.3);
 }
+
+@media (max-width: 768px) {
+    #container {
+        flex-direction: column;
+    }
+    #leftPanel {
+        flex: 0 0 auto;
+        height: 55vh;
+    }
+    #rightPanel {
+        flex: 1 1 auto;
+        padding: 20px 16px;
+        overflow-y: auto;
+        border-left: none;
+        border-top: 1px solid rgba(0, 255, 255, 0.1);
+    }
+    #sectionTitle {
+        font-size: 18px;
+        margin-bottom: 20px;
+        padding-bottom: 8px;
+    }
+    #formulaSection {
+        margin-bottom: 24px;
+    }
+    .formula-line {
+        font-size: 13px;
+        line-height: 1.9;
+    }
+    #proofSummary {
+        margin-top: 0;
+    }
+    .summary-step {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+}
