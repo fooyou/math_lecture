@@ -9,15 +9,17 @@
 <body>
     <div id="container">
         <div id="leftPanel">
-            <canvas id="animationCanvas"></canvas>
-            <div id="title">勾股定理</div>
-            <div id="tripleSelector">
-                <span class="tripleLabel">a, b =</span>
-                <button class="tripleBtn active" data-a="3" data-b="4">3, 4</button>
-                <button class="tripleBtn" data-a="5" data-b="12">5, 12</button>
-                <button class="tripleBtn" data-a="8" data-b="15">8, 15</button>
+            <div id="canvasArea">
+                <canvas id="animationCanvas"></canvas>
+                <div id="title">勾股定理</div>
+                <div id="tripleSelector">
+                    <span class="tripleLabel">a, b =</span>
+                    <button class="tripleBtn active" data-a="3" data-b="4">3, 4</button>
+                    <button class="tripleBtn" data-a="5" data-b="12">5, 12</button>
+                    <button class="tripleBtn" data-a="8" data-b="15">8, 15</button>
+                </div>
             </div>
-            <div id="controls">
+            <div id="controlsBar">
                 <button id="playPauseBtn">暂停</button>
                 <input type="range" id="progressSlider" min="0" max="1000" value="0">
             </div>

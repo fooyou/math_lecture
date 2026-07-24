@@ -40,21 +40,16 @@ function getPhaseProgress(progress, start, end) {
 
 const playPauseBtn = document.getElementById('playPauseBtn');
 const progressSlider = document.getElementById('progressSlider');
-const formulaOverlay = document.getElementById('formulaOverlay');
-const formulaHud = formulaOverlay.querySelector('.formula-hud');
 const formulaLine1 = document.getElementById('formulaLine1');
 const formulaLine2 = document.getElementById('formulaLine2');
 const formulaLine3 = document.getElementById('formulaLine3');
+const formulaResult = document.getElementById('formulaResult');
 
 function renderFormulas() {
     katex.render('S = 1 + 2 + 3 + \\cdots + ' + n, formulaLine1, { throwOnError: false });
     katex.render('\\text{矩形面积} = ' + n + ' \\times ' + (n + 1) + ' = ' + (n * (n + 1)), formulaLine2, { throwOnError: false });
     katex.render('S = \\dfrac{1}{2} \\times ' + n + ' \\times ' + (n + 1) + ' = ' + (n * (n + 1) / 2), formulaLine3, { throwOnError: false });
-}
-
-function updateFormulaHudPosition() {
-    formulaHud.style.left = cx + 'px';
-    formulaHud.style.bottom = '60px';
+    if (formulaResult) formulaResult.textContent = n * (n + 1) / 2;
 }
 
 function updateFormulaHudOpacity() {
@@ -79,19 +74,28 @@ function updateFormulaHudOpacity() {
     formulaLine1.style.opacity = o1;
     formulaLine2.style.opacity = o2;
     formulaLine3.style.opacity = o3;
+}
 
-    const anyVisible = o1 > 0 || o2 > 0 || o3 > 0;
-    formulaHud.style.opacity = anyVisible ? 1 : 0;
-    formulaHud.style.display = anyVisible ? 'block' : 'none';
+function updateSummarySteps() {
+    const buildP = getPhaseProgress(progress, 0, 0.20);
+    const mirrorP = getPhaseProgress(progress, 0.28, 0.60);
+    const rectP = getPhaseProgress(progress, 0.60, 0.72);
+    const formulaP = getPhaseProgress(progress, 0.72, 1.00);
+    const el = (id) => document.getElementById(id);
+    const s1 = el('step1'), s2 = el('step2'), s3 = el('step3'), s4 = el('step4');
+    if (s1) s1.classList.toggle('active', buildP > 0.5);
+    if (s2) s2.classList.toggle('active', mirrorP > 0.2);
+    if (s3) s3.classList.toggle('active', rectP > 0.5);
+    if (s4) s4.classList.toggle('active', formulaP > 0.3);
 }
 
 renderFormulas();
 
 function updateSize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const ca = document.getElementById('canvasArea');
+    canvas.width = ca.clientWidth;
+    canvas.height = ca.clientHeight;
     calculateDimensions();
-    updateFormulaHudPosition();
 }
 window.addEventListener('resize', updateSize);
 updateSize();
@@ -121,7 +125,6 @@ document.querySelectorAll('.nBtn').forEach(btn => {
         n = parseInt(btn.dataset.n);
         calculateDimensions();
         renderFormulas();
-        updateFormulaHudPosition();
         progress = 0;
         progressSlider.value = 0;
         isPlaying = true;
@@ -284,6 +287,7 @@ function draw() {
 
     drawAnnotations(progress);
     updateFormulaHudOpacity();
+    updateSummarySteps();
 
     requestAnimationFrame(draw);
 }

@@ -120,9 +120,9 @@ function triArr2(idx) {
 renderFormulas();
 
 function updateSize() {
-    const lp = document.getElementById('leftPanel');
-    canvas.width = lp.clientWidth;
-    canvas.height = lp.clientHeight;
+    const ca = document.getElementById('canvasArea');
+    canvas.width = ca.clientWidth;
+    canvas.height = ca.clientHeight;
     calculateDimensions();
 }
 window.addEventListener('resize', updateSize);

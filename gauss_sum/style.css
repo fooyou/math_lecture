@@ -2,10 +2,32 @@ body, html {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    height: 100%;
     background: #010204;
-    font-family: 'Consolas', 'Monaco', 'Fira Code', 'Segoe UI', sans-serif;
+    font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
     color: #ffffff;
     user-select: none;
+}
+
+#container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+#leftPanel {
+    position: relative;
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+#canvasArea {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
 }
 
 canvas {
@@ -13,6 +35,8 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
 }
 
@@ -67,15 +91,14 @@ canvas {
     color: #ffffff;
 }
 
-#controls {
-    position: absolute;
-    top: 16px;
-    right: 16px;
+#controlsBar {
+    height: 48px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    background: transparent;
-    padding: 0;
+    justify-content: center;
+    gap: 14px;
+    background: #070a12;
+    border-top: 1px solid rgba(0, 255, 255, 0.08);
     z-index: 10;
 }
 
@@ -101,7 +124,7 @@ button:active {
 #progressSlider {
     -webkit-appearance: none;
     appearance: none;
-    width: 180px;
+    width: 240px;
     height: 3px;
     background: rgba(0, 255, 255, 0.2);
     border: none;
@@ -141,42 +164,89 @@ button:active {
     background: #ffffff;
 }
 
-#formulaOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 5;
+#rightPanel {
+    flex: 4;
+    background: #080b12;
+    border-left: 1px solid rgba(0, 255, 255, 0.1);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    min-width: 0;
 }
 
-.formula-hud {
-    position: absolute;
-    width: 520px;
-    padding: 16px 24px;
-    background: rgba(5, 6, 10, 0.9);
-    border: 1px solid rgba(255, 200, 0, 0.2);
-    transform: translateX(-50%);
-    text-align: center;
-    opacity: 0;
-    box-shadow: 0 0 20px rgba(255, 200, 0, 0.06), inset 0 0 10px rgba(255, 200, 0, 0.03);
+#sectionTitle {
+    font-size: 22px;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    margin-bottom: 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+    letter-spacing: 2px;
+}
+
+#formulaSection {
+    margin-bottom: 36px;
 }
 
 .formula-line {
-    font-size: 18px;
-    line-height: 1.9;
+    font-size: 15px;
+    line-height: 2.2;
     opacity: 0;
     transition: opacity 0.15s linear;
+    padding: 4px 0;
 }
 
 .formula-line:first-child .katex {
     color: #ffcc00;
-    text-shadow: 0 0 8px rgba(255, 200, 0, 0.3);
+    text-shadow: 0 0 6px rgba(255, 200, 0, 0.2);
 }
 
 .formula-line:last-child .katex {
     color: #00ffff;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.35);
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
     font-weight: bold;
+}
+
+#proofSummary {
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.summary-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 14px;
+    transition: color 0.3s ease;
+}
+
+.summary-step.active {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.summary-step strong {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+.stepNum {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: rgba(0, 255, 255, 0.6);
+}
+
+.summary-step.active .stepNum {
+    color: #00ffff;
+    text-shadow: 0 0 6px rgba(0, 255, 255, 0.3);
 }

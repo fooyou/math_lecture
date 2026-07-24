@@ -7,29 +7,50 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 </head>
 <body>
-    <canvas id="animationCanvas"></canvas>
-
-    <div id="title">高斯求和</div>
-
-    <div id="nSelector">
-        <span class="nLabel">n =</span>
-        <button class="nBtn active" data-n="10">10</button>
-        <button class="nBtn" data-n="20">20</button>
-        <button class="nBtn" data-n="50">50</button>
-        <button class="nBtn" data-n="100">100</button>
-    </div>
-
-    <div id="formulaOverlay">
-        <div class="formula-hud">
-            <div class="formula-line" id="formulaLine1"></div>
-            <div class="formula-line" id="formulaLine2"></div>
-            <div class="formula-line" id="formulaLine3"></div>
+    <div id="container">
+        <div id="leftPanel">
+            <div id="canvasArea">
+                <canvas id="animationCanvas"></canvas>
+                <div id="title">高斯求和</div>
+                <div id="nSelector">
+                    <span class="nLabel">n =</span>
+                    <button class="nBtn active" data-n="10">10</button>
+                    <button class="nBtn" data-n="20">20</button>
+                    <button class="nBtn" data-n="50">50</button>
+                    <button class="nBtn" data-n="100">100</button>
+                </div>
+            </div>
+            <div id="controlsBar">
+                <button id="playPauseBtn">暂停</button>
+                <input type="range" id="progressSlider" min="0" max="1000" value="0">
+            </div>
         </div>
-    </div>
-
-    <div id="controls">
-        <button id="playPauseBtn">暂停</button>
-        <input type="range" id="progressSlider" min="0" max="1000" value="0">
+        <div id="rightPanel">
+            <div id="sectionTitle">阶梯拼接证明</div>
+            <div id="formulaSection">
+                <div class="formula-line" id="formulaLine1"></div>
+                <div class="formula-line" id="formulaLine2"></div>
+                <div class="formula-line" id="formulaLine3"></div>
+            </div>
+            <div id="proofSummary">
+                <div class="summary-step" id="step1">
+                    <span class="stepNum">①</span>
+                    <span>用阶梯表示 <strong>S = 1 + 2 + 3 + ... + n</strong></span>
+                </div>
+                <div class="summary-step" id="step2">
+                    <span class="stepNum">②</span>
+                    <span>翻转相同的阶梯并拼接 → 形成一个 <strong>矩形</strong></span>
+                </div>
+                <div class="summary-step" id="step3">
+                    <span class="stepNum">③</span>
+                    <span>矩形面积 = 宽 <strong>n</strong> × 高 <strong>n+1</strong></span>
+                </div>
+                <div class="summary-step" id="step4">
+                    <span class="stepNum">④</span>
+                    <span>S = ½ × n × (n+1) = <strong id="formulaResult"></strong></span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>

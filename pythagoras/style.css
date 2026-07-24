@@ -18,8 +18,16 @@ body, html {
 #leftPanel {
     position: relative;
     flex: 6;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     min-width: 0;
+}
+
+#canvasArea {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
 }
 
 canvas {
@@ -83,15 +91,14 @@ canvas {
     color: #ffffff;
 }
 
-#controls {
-    position: absolute;
-    top: 16px;
-    right: 16px;
+#controlsBar {
+    height: 48px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    background: transparent;
-    padding: 0;
+    justify-content: center;
+    gap: 14px;
+    background: #070a12;
+    border-top: 1px solid rgba(0, 255, 255, 0.08);
     z-index: 10;
 }
 
