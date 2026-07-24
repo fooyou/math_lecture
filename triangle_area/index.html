@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>三角形面积 - Triangle Area</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+    <div id="container">
+        <div id="leftPanel">
+            <div id="canvasArea">
+                <canvas id="animationCanvas"></canvas>
+                <div id="title">三角形面积</div>
+                <div id="typeSelector">
+                    <span class="typeLabel">类型:</span>
+                    <button class="typeBtn active" data-type="right">直角</button>
+                    <button class="typeBtn" data-type="acute">锐角</button>
+                    <button class="typeBtn" data-type="obtuse">钝角</button>
+                </div>
+            </div>
+            <div id="controlsBar">
+                <button id="playPauseBtn">暂停</button>
+                <input type="range" id="progressSlider" min="0" max="1000" value="0">
+            </div>
+        </div>
+        <div id="rightPanel">
+            <div id="sectionTitle">面积拼贴证明</div>
+            <div id="formulaSection">
+                <div class="formula-line" id="formulaLine1"></div>
+                <div class="formula-line" id="formulaLine2"></div>
+                <div class="formula-line" id="formulaLine3"></div>
+            </div>
+            <div id="proofSummary">
+                <div class="summary-step" id="step1">
+                    <span class="stepNum">①</span>
+                    <span>画一个三角形，底为 <strong>b</strong>，高为 <strong>h</strong></span>
+                </div>
+                <div class="summary-step" id="step2">
+                    <span class="stepNum">②</span>
+                    <span>复制一个全等三角形，旋转180°拼合</span>
+                </div>
+                <div class="summary-step" id="step3">
+                    <span class="stepNum">③</span>
+                    <span>拼成平行四边形，面积 = <strong>b × h</strong></span>
+                </div>
+                <div class="summary-step" id="step4">
+                    <span class="stepNum">④</span>
+                    <span>三角形是平行四边形的一半 → <strong>S = ½bh</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

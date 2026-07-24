@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>乘法分配律 - Distributive Law</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+    <div id="container">
+        <div id="leftPanel">
+            <div id="canvasArea">
+                <canvas id="animationCanvas"></canvas>
+                <div id="title">乘法分配律</div>
+                <div id="numSelector">
+                    <span class="numLabel">算式:</span>
+                    <button class="numBtn active" data-a="3" data-b="4" data-c="5">3×(4+5)</button>
+                    <button class="numBtn" data-a="2" data-b="3" data-c="6">2×(3+6)</button>
+                    <button class="numBtn" data-a="4" data-b="2" data-c="3">4×(2+3)</button>
+                </div>
+            </div>
+            <div id="controlsBar">
+                <button id="playPauseBtn">暂停</button>
+                <input type="range" id="progressSlider" min="0" max="1000" value="0">
+            </div>
+        </div>
+        <div id="rightPanel">
+            <div id="sectionTitle">矩形面积证明</div>
+            <div id="formulaSection">
+                <div class="formula-line" id="formulaLine1"></div>
+                <div class="formula-line" id="formulaLine2"></div>
+                <div class="formula-line" id="formulaLine3"></div>
+            </div>
+            <div id="proofSummary">
+                <div class="summary-step" id="step1">
+                    <span class="stepNum">①</span>
+                    <span>画一个矩形，宽 <strong>a</strong>，长 <strong>(b+c)</strong></span>
+                </div>
+                <div class="summary-step" id="step2">
+                    <span class="stepNum">②</span>
+                    <span>用竖线将矩形分割成两部分</span>
+                </div>
+                <div class="summary-step" id="step3">
+                    <span class="stepNum">③</span>
+                    <span>左半面积 = <strong>a×b</strong>，右半面积 = <strong>a×c</strong></span>
+                </div>
+                <div class="summary-step" id="step4">
+                    <span class="stepNum">④</span>
+                    <span>总面积不变 → <strong>a×(b+c) = a×b + a×c</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
