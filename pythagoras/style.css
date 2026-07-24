@@ -257,8 +257,8 @@ button:active {
     }
     #leftPanel {
         flex: 0 0 auto;
-        height: 50vh;
-        min-height: 340px;
+        height: 60vh;
+        min-height: 360px;
     }
     #rightPanel {
         flex: 1 1 auto;
