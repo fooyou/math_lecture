@@ -494,9 +494,9 @@ function drawLabels(p, mT, alpha) {
     ctx.font = '13px Consolas, Monaco, monospace';
     ctx.textAlign = 'center'; ctx.textBaseline = 'top';
     if (mT < 0.5) {
-        ctx.fillText('\u6392\u52171: \u56DB\u4E2A\u4E09\u89D2\u5F62 + c\u00B2 = (a+b)\u00B2', cx, bigBLy + 14);
+        ctx.fillText('\u6392\u52171: \u56DB\u4E2A\u4E09\u89D2\u5F62 + c\u00B2 = (a+b)\u00B2', cx, bigBLy + 32);
     } else {
-        ctx.fillText('\u6392\u52172: \u56DB\u4E2A\u4E09\u89D2\u5F62 + a\u00B2 + b\u00B2 = (a+b)\u00B2', cx, bigBLy + 14);
+        ctx.fillText('\u6392\u52172: \u56DB\u4E2A\u4E09\u89D2\u5F62 + a\u00B2 + b\u00B2 = (a+b)\u00B2', cx, bigBLy + 32);
     }
     ctx.restore();
 }
