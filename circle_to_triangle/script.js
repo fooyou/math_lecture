@@ -22,9 +22,15 @@ function updateSize() {
     canvas.width = window.innerWidth * dpr;
     canvas.height = window.innerHeight * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    cx = canvas.width / dpr / 2;
-    cy = canvas.height / dpr * 0.42;
-    MAX_R = Math.max(120, Math.min(canvas.width / dpr * 0.22, canvas.height / dpr * 0.22, 220));
+    const w = canvas.width / dpr;
+    const h = canvas.height / dpr;
+    cx = w / 2;
+    cy = h * 0.42;
+    // 三角形底边宽度 = 2·π·MAX_R，必须在水平方向容纳 0.88·w
+    // 三角形竖直跨度 = 2·MAX_R，上下都需要留白
+    const maxByWidth = w * 0.88 / (2 * Math.PI);
+    const maxByHeight = Math.min(cy - 20, h - cy - 40);
+    MAX_R = Math.max(80, Math.min(maxByWidth, maxByHeight, 220));
     updateFormulaHudPosition();
 }
 window.addEventListener('resize', updateSize);

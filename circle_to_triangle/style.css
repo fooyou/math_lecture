@@ -148,3 +148,32 @@ button:active {
     text-shadow: 0 0 10px rgba(0, 255, 255, 0.35);
     font-weight: bold;
 }
+
+@media (max-width: 1273px) {
+    #title {
+        top: 14px;
+        left: 16px;
+        font-size: 16px;
+        letter-spacing: 2px;
+    }
+    #controls {
+        top: 48px;
+        right: 16px;
+    }
+    #progressSlider {
+        width: 160px;
+    }
+    button {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+    .formula-hud {
+        width: 86%;
+        max-width: 360px;
+        padding: 14px 18px;
+    }
+    .formula-line {
+        font-size: 14px;
+        line-height: 2;
+    }
+}
