@@ -25,12 +25,12 @@ function updateSize() {
     const w = canvas.width / dpr;
     const h = canvas.height / dpr;
     cx = w / 2;
-    cy = h * 0.42;
-    // 三角形底边宽度 = 2·π·MAX_R，必须在水平方向容纳 0.88·w
-    // 三角形竖直跨度 = 2·MAX_R，上下都需要留白
-    const maxByWidth = w * 0.88 / (2 * Math.PI);
-    const maxByHeight = Math.min(cy - 20, h - cy - 40);
-    MAX_R = Math.max(80, Math.min(maxByWidth, maxByHeight, 220));
+    // 居中放置，给上方 DOM (title/controls) 和下方 HUD 都留出余量
+    cy = h * 0.5;
+    // 三角形底边宽 2π·MAX_R 须 ≤ 0.80·w，竖直跨度 2·MAX_R 须 ≤ h - 120 (DOM 上下余量)
+    const maxByWidth = w * 0.80 / (2 * Math.PI);
+    const maxByHeight = (h - 120) / 2;
+    MAX_R = Math.max(40, Math.min(maxByWidth, maxByHeight, 220));
     updateFormulaHudPosition();
 }
 window.addEventListener('resize', updateSize);
