@@ -199,8 +199,8 @@ function drawTransferDots(count, phase) {
         const tr = Math.floor(slotI / 5), tc = slotI % 5;
         const ex = tfX + tc * cellSz + cellSz / 2;
         const ey = tfY + tr * cellSz + cellSz / 2;
-        const sx = ex + cellSz * 2.5;
-        const sy = ey - cellSz * 2;
+        const sx = tfX + cellSz * 5 + cellSz * 0.8;
+        const sy = tfY - cellSz * 0.8;
 
         const c1x = lerp(sx, ex, 0.3), c1y = lerp(sy, ey, 0.3) - cellSz * 1.5;
         const c2x = lerp(sx, ex, 0.7), c2y = lerp(sy, ey, 0.7) - cellSz * 0.5;
@@ -231,8 +231,9 @@ function drawTransferDots(count, phase) {
 
 function drawRemainderDots(count, phase) {
     if (phase <= 0 || !count) return;
-    const startX = tfX + cellSz * 6.2;
-    const startY = tfY + cellSz * 0.5;
+    const frameW = cellSz * 5;
+    const startX = cx - frameW / 2 + (frameW - count * cellSz) / 2 + cellSz / 2;
+    const startY = tfY - cellSz * 1.2;
 
     for (let i = 0; i < count; i++) {
         const ep = easeOutBack(clamp((phase - i * 0.08) / 0.5, 0, 1));
@@ -278,26 +279,23 @@ function draw() {
     // Remainder dots
     drawRemainderDots(left, p5);
 
-    // Split hint
+    // Split hint — centered above remainder dots
     if (p3 > 0) {
-        const sx = tfX + cellSz * 6.2;
-        const sy = tfY - cellSz * 1;
-        drawLabel(b + ' \u2192 ' + need + ' + ' + left, sx + cellSz * 1.5, sy, '#ffffff', 16, easeOutQuad(p3));
-        drawLabel('\u51d1\u5341 ' + need, sx + cellSz * 1.5, sy + 24, '#ffcc00', 13, easeOutQuad(clamp((p3 - 0.3) / 0.7, 0, 1)));
+        const hy = tfY - cellSz * 2.5;
+        drawLabel(b + ' \u2192 ' + need + ' + ' + left, cx, hy, '#ffffff', 16, easeOutQuad(p3));
+        drawLabel('\u51d1\u5341 ' + need, cx, hy + 24, '#ffcc00', 13, easeOutQuad(clamp((p3 - 0.3) / 0.7, 0, 1)));
     }
 
-    // Remainder label
+    // Remainder label — centered below dots
     if (p5 > 0.3) {
-        const rx = tfX + cellSz * 6.2 + left * cellSz / 2;
-        const ry = tfY + cellSz * 0.5 + cellSz;
-        drawLabel('\u5269\u4f59 ' + left, rx, ry, 'rgba(255,255,255,0.6)', 13, easeOutQuad(clamp((p5 - 0.3) / 0.5, 0, 1)));
+        const ry = tfY - cellSz * 0.4;
+        drawLabel('\u5269\u4f59 ' + left, cx, ry, 'rgba(255,255,255,0.6)', 13, easeOutQuad(clamp((p5 - 0.3) / 0.5, 0, 1)));
     }
 
-    // Transfer label
+    // Transfer label — centered below ten frame
     if (p4 > 0.5) {
-        const tx = tfX + cellSz * 6.2 + cellSz;
         const ty = tfY + cellSz * 2.5;
-        drawLabel('+' + need + ' \u2192 \u51d1\u621010', tx, ty, '#ffcc00', 14, easeOutQuad(clamp((p4 - 0.5) / 0.4, 0, 1)));
+        drawLabel('+' + need + ' \u2192 \u51d1\u621010', cx, ty, '#ffcc00', 14, easeOutQuad(clamp((p4 - 0.5) / 0.4, 0, 1)));
     }
 
     // Final result
