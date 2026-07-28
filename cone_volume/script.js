@@ -1,6 +1,20 @@
 const canvas = document.getElementById('animationCanvas');
 const ctx = canvas.getContext('2d');
 
+// polyfill: ctx.ellipse 在旧版 Edge / 部分手机内置浏览器不被支持，用 arc + scale 模拟
+if (!CanvasRenderingContext2D.prototype.ellipse) {
+    CanvasRenderingContext2D.prototype.ellipse = function (x, y, rx, ry, rotation, startAngle, endAngle, anticlockwise) {
+        this.save();
+        this.translate(x, y);
+        this.rotate(rotation);
+        this.scale(1, ry / rx);
+        // arc 内部会在当前坐标系起点 moveTo + 绘制弧线，等价于独立 path
+        this.arc(0, 0, rx, startAngle, endAngle, anticlockwise);
+        this.restore();
+        return this;
+    };
+}
+
 let cx, cy, coneW, coneH, cylW, cylH;
 let isPlaying = true;
 let progress = 0;
@@ -63,12 +77,19 @@ renderFormulas();
 function updateSize() {
     const ca = document.getElementById('canvasArea');
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = ca.clientWidth * dpr;
-    canvas.height = ca.clientHeight * dpr;
+    const cssW = ca.clientWidth || window.innerWidth;
+    const cssH = ca.clientHeight || window.innerHeight;
+    canvas.width = Math.max(1, Math.round(cssW * dpr));
+    canvas.height = Math.max(1, Math.round(cssH * dpr));
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     calculateDimensions();
 }
 window.addEventListener('resize', updateSize);
+window.addEventListener('orientationchange', updateSize);
+// ResizeObserver 监听 #canvasArea 本身尺寸变化（移动端软键盘、地址栏收缩等情况 window.resize 可能不触发）
+if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(updateSize).observe(document.getElementById('canvasArea'));
+}
 updateSize();
 
 playPauseBtn.addEventListener('click', () => {
