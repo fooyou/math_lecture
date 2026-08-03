@@ -1,0 +1,315 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    background: #010204;
+    font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    color: #ffffff;
+    user-select: none;
+}
+
+#container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#leftPanel {
+    position: relative;
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+#canvasArea {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#title {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.4), 0 0 30px rgba(0, 255, 255, 0.1);
+    letter-spacing: 3px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#exampleSelector {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.exLabel {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    margin-right: 4px;
+}
+
+.exBtn {
+    background: rgba(0, 255, 255, 0.06);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: rgba(0, 255, 255, 0.6);
+    padding: 4px 12px;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.exBtn:hover {
+    background: rgba(0, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.exBtn.active {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: #00ffff;
+    color: #ffffff;
+}
+
+#controlsBar {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: #070a12;
+    border-top: 1px solid rgba(0, 255, 255, 0.08);
+    z-index: 10;
+}
+
+button {
+    background: rgba(0, 255, 255, 0.06);
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    color: #00ffff;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+button:hover {
+    background: rgba(0, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+button:active {
+    background: rgba(0, 255, 255, 0.35);
+}
+
+#progressSlider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 300px;
+    height: 3px;
+    background: rgba(0, 255, 255, 0.2);
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#progressSlider:hover {
+    background: rgba(0, 255, 255, 0.35);
+}
+
+#progressSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 0;
+    background: #00ffff;
+    border: none;
+    cursor: pointer;
+}
+
+#progressSlider::-webkit-slider-thumb:hover {
+    background: #ffffff;
+}
+
+#progressSlider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 0;
+    background: #00ffff;
+    border: none;
+    cursor: pointer;
+}
+
+#rightPanel {
+    flex: 4;
+    background: #080b12;
+    border-left: 1px solid rgba(0, 255, 255, 0.1);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 0;
+}
+
+#sectionTitle {
+    font-size: 22px;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    margin-bottom: 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+    letter-spacing: 2px;
+}
+
+#formulaSection {
+    margin-bottom: 36px;
+}
+
+.formula-line {
+    font-size: 14px;
+    line-height: 2.2;
+    opacity: 0;
+    transition: opacity 0.15s linear;
+    padding: 4px 0;
+}
+
+.formula-line:first-child .katex {
+    color: #ffcc00;
+    text-shadow: 0 0 6px rgba(255, 200, 0, 0.2);
+}
+
+.formula-line:last-child .katex {
+    color: #00ffff;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
+    font-weight: bold;
+}
+
+#proofSummary {
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.summary-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 14px;
+    transition: color 0.3s ease;
+}
+
+.summary-step.active {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.summary-step strong {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+.stepNum {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: rgba(0, 255, 255, 0.6);
+}
+
+.summary-step.active .stepNum {
+    color: #00ffff;
+    text-shadow: 0 0 6px rgba(0, 255, 255, 0.3);
+}
+
+@media (max-width: 1273px) {
+    #container {
+        flex-direction: column;
+    }
+    #leftPanel {
+        flex: 0 0 auto;
+        height: 70vh;
+        min-height: 400px;
+    }
+    #title {
+        top: 14px;
+        left: 14px;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    #exampleSelector {
+        top: 14px;
+        left: auto;
+        right: 14px;
+        transform: none;
+        gap: 4px;
+    }
+    .exBtn {
+        padding: 3px 8px;
+        font-size: 11px;
+    }
+    .exLabel {
+        font-size: 11px;
+        margin-right: 2px;
+    }
+    #rightPanel {
+        flex: 1 1 auto;
+        padding: 24px 20px;
+        overflow-y: auto;
+        border-left: none;
+        border-top: 1px solid rgba(0, 255, 255, 0.1);
+    }
+    #sectionTitle {
+        font-size: 20px;
+        margin-bottom: 20px;
+        padding-bottom: 8px;
+    }
+    #formulaSection {
+        margin-bottom: 24px;
+    }
+    .formula-line {
+        font-size: 15px;
+        line-height: 2.2;
+    }
+    #proofSummary {
+        margin-top: 0;
+        padding-top: 16px;
+    }
+    .summary-step {
+        font-size: 13px;
+        margin-bottom: 12px;
+        line-height: 1.7;
+    }
+    #progressSlider {
+        width: 240px;
+    }
+}

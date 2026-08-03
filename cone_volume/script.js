@@ -48,9 +48,19 @@ function calculateDimensions() {
 }
 
 function renderFormulas() {
-    katex.render('V_{\\text{圆柱}} = S \\times h', formulaLine1, { throwOnError: false });
-    katex.render('V_{\\text{圆锥}} = \\frac{1}{3} \\times S \\times h', formulaLine2, { throwOnError: false });
-    katex.render('\\therefore V_{\\text{圆锥}} = \\frac{1}{3} V_{\\text{圆柱}}', formulaLine3, { throwOnError: false });
+    // KaTeX 由 CDN 异步加载，未就绪时跳过渲染，绝不让动画中断
+    if (typeof katex === 'undefined') return;
+    try {
+        katex.render('V_{\\text{圆柱}} = S \\times h', formulaLine1, { throwOnError: false });
+        katex.render('V_{\\text{圆锥}} = \\frac{1}{3} \\times S \\times h', formulaLine2, { throwOnError: false });
+        katex.render('\\therefore V_{\\text{圆锥}} = \\frac{1}{3} V_{\\text{圆柱}}', formulaLine3, { throwOnError: false });
+    } catch (err) { /* 忽略 KaTeX 渲染错误 */ }
+}
+
+function ensureFormulasRendered() {
+    if (typeof katex !== 'undefined' && formulaLine1 && !formulaLine1.children.length) {
+        renderFormulas();
+    }
 }
 
 function updateFormulaHudOpacity() {
@@ -65,14 +75,20 @@ function updateSummarySteps() {
     const p2 = getPhase(progress, 0.20, 0.40);
     const p3 = getPhase(progress, 0.40, 0.60);
     const p4 = getPhase(progress, 0.60, 0.80);
-    const el = (id) => document.getElementById(id);
-    el('step1')?.classList.toggle('active', p1 > 0.3);
-    el('step2')?.classList.toggle('active', p2 > 0.3);
-    el('step3')?.classList.toggle('active', p3 > 0.3);
-    el('step4')?.classList.toggle('active', p4 > 0.3);
+    toggleStep('step1', p1 > 0.3);
+    toggleStep('step2', p2 > 0.3);
+    toggleStep('step3', p3 > 0.3);
+    toggleStep('step4', p4 > 0.3);
+}
+
+function toggleStep(id, on) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('active', on);
 }
 
 renderFormulas();
+// KaTeX 异步加载完成后补渲公式（JS 可能先于 defer 的 katex 执行）
+window.addEventListener('load', renderFormulas);
 
 function updateSize() {
     const ca = document.getElementById('canvasArea');
@@ -344,6 +360,7 @@ function draw() {
     else if (p3 > 0 && p3 < 1) drawPourCount(2, 1);
     else if (p4 > 0 && p4 < 1) drawPourCount(3, 1);
 
+    ensureFormulasRendered();
     updateFormulaHudOpacity();
     updateSummarySteps();
     requestAnimationFrame(draw);
